@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import dagger.hilt.android.AndroidEntryPoint
 import ru.kryu.binlist.presentation.theme.BinListTheme
 
@@ -19,7 +20,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             BinListTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BinNavHost(modifier = Modifier.padding(innerPadding))
+                    BinNavHost(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .padding(8.dp)
+                    )
                 }
             }
         }

@@ -20,12 +20,11 @@ fun BinNavHost(
     NavHost(navController, startDestination, modifier) {
         composable(SEARCH) {
             SearchScreen(
-                onFabClicked = { navController.navigate(CARD_LIST) },
-                modifier = modifier,
+                onFabClicked = { navController.navigate(CARD_LIST) }
             )
         }
         composable(CARD_LIST) {
-            ListScreen(modifier = modifier)
+            ListScreen()
         }
     }
 }
