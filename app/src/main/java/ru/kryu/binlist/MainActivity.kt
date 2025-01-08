@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import ru.kryu.binlist.presentation.search.SearchScreen
 import ru.kryu.binlist.presentation.theme.BinListTheme
 
 @AndroidEntryPoint
@@ -20,7 +19,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BinListTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    SearchScreen(modifier = Modifier.padding(innerPadding))
+                    BinNavHost(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
