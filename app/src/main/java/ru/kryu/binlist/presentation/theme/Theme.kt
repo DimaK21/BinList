@@ -1,4 +1,4 @@
-package ru.kryu.binlist.ui.theme
+package ru.kryu.binlist.presentation.theme
 
 import android.app.Activity
 import android.os.Build

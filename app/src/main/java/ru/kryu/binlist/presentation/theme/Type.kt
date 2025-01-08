@@ -1,4 +1,4 @@
-package ru.kryu.binlist.ui.theme
+package ru.kryu.binlist.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

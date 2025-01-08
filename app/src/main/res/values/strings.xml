@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BinList</string>
+    <string name="_4_to_8_digits">4 to 8 digits</string>
+    <string name="search">Search</string>
 </resources>
