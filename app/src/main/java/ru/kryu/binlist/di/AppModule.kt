@@ -21,13 +21,13 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideCardIfoRepository(): CardIfoRepository =
-        CardIfoRepositoryImpl()
+    fun provideCardIfoRepository(cardDetailsDao: CardDetailsDao): CardIfoRepository =
+        CardIfoRepositoryImpl(cardDetailsDao)
 
     @Provides
     @Singleton
-    fun provideCardListRepository(): CardListRepository =
-        CardListRepositoryImpl()
+    fun provideCardListRepository(cardDetailsDao: CardDetailsDao): CardListRepository =
+        CardListRepositoryImpl(cardDetailsDao)
 
     @Provides
     @Singleton
