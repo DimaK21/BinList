@@ -4,6 +4,6 @@ import kotlinx.coroutines.flow.Flow
 import ru.kryu.binlist.domain.model.CardDetails
 import ru.kryu.binlist.util.Resource
 
-interface CardIfoRepository {
+interface CardInfoRepository {
     fun getCardInfo(bin: String): Flow<Resource<CardDetails>>
 }

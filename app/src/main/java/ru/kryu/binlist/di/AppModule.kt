@@ -7,15 +7,18 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.kryu.binlist.data.CardIfoRepositoryImpl
+import ru.kryu.binlist.BuildConfig
+import ru.kryu.binlist.data.CardInfoRepositoryImpl
 import ru.kryu.binlist.data.CardListRepositoryImpl
 import ru.kryu.binlist.data.database.CardDetailsDao
 import ru.kryu.binlist.data.database.CardDetailsDatabase
 import ru.kryu.binlist.data.network.BinApi
 import ru.kryu.binlist.data.network.RetrofitNetworkClient
-import ru.kryu.binlist.domain.CardIfoRepository
+import ru.kryu.binlist.domain.CardInfoRepository
 import ru.kryu.binlist.domain.CardListRepository
 import javax.inject.Singleton
 
@@ -25,11 +28,11 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideCardIfoRepository(
+    fun provideCardInfoRepository(
         cardDetailsDao: CardDetailsDao,
         retrofitNetworkClient: RetrofitNetworkClient,
-    ): CardIfoRepository =
-        CardIfoRepositoryImpl(cardDetailsDao, retrofitNetworkClient)
+    ): CardInfoRepository =
+        CardInfoRepositoryImpl(cardDetailsDao, retrofitNetworkClient)
 
     @Provides
     @Singleton
@@ -54,12 +57,31 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideBinApi(): BinApi =
+    fun provideBinApi(okHttpClient: OkHttpClient): BinApi =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(BinApi::class.java)
+
+    @Provides
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
+        }
+    }
+
+    @Provides
+    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+    }
 
     companion object {
         private const val BASE_URL = "https://lookup.binlist.net/"

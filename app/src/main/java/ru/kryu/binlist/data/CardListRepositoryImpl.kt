@@ -11,6 +11,6 @@ class CardListRepositoryImpl @Inject constructor(
 ) : CardListRepository {
 
     override suspend fun getCardList(): List<CardDetails> {
-        return cardDetailsDao.getCardsDetails().map { it.toDomain() }
+        return cardDetailsDao.getCardsDetails().map { it.toDomain() }.reversed()
     }
 }

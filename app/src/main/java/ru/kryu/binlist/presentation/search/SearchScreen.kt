@@ -33,7 +33,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.kryu.binlist.R
-import ru.kryu.binlist.domain.model.CardDetails
 import ru.kryu.binlist.presentation.cardlist.DetailColumn
 import ru.kryu.binlist.presentation.cardlist.LoadingIndicator
 import ru.kryu.binlist.presentation.theme.BinListTheme
@@ -67,11 +66,11 @@ fun SearchScreen(
             SearchTextField(
                 textState = textState,
                 onValueChange = { textState.value = it },
-                onIconButtonClicked = {},
+                onIconButtonClicked = { viewModel.getCardInfo(textState.value) },
                 modifier = modifier
             )
             Spacer(Modifier.height(16.dp))
-            DetailColumn(CardDetails(), modifier)
+            DetailColumn(state.value.card, modifier)
         }
         FloatingActionButton(
             onClick = onFabClicked,
@@ -105,7 +104,7 @@ fun SearchTextField(
             }
         },
         maxLines = 1,
-        label = { Text(stringResource(R.string._4_to_8_digits)) },
+        label = { Text(stringResource(R.string._6_to_8_digits)) },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
             imeAction = ImeAction.Done

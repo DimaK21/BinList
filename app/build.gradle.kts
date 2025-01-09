@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.symbol.processing)
     alias(libs.plugins.dagger.hilt.android)
-    id("kotlin-parcelize")
 }
 
 android {
@@ -69,4 +68,5 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
+    implementation(libs.okhttp.logging)
 }

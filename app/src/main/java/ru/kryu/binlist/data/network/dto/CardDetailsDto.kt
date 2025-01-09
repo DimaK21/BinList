@@ -8,7 +8,11 @@ data class CardDetailsDto(
     val prepaid: Boolean?,
     val country: Country?,
     val bank: Bank?
-)
+) {
+    fun isFieldsNull(): Boolean {
+        return scheme == null && type == null && brand == null && country?.name == null && bank?.name == null && bank?.url == null && bank?.city == null && bank?.phone == null
+    }
+}
 
 data class Number(
     val length: Int?,
