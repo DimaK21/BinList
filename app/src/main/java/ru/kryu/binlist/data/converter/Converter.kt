@@ -5,6 +5,7 @@ import ru.kryu.binlist.data.network.dto.CardDetailsDto
 import ru.kryu.binlist.domain.model.CardDetails
 
 fun CardDetails.toEntity() = CardDetailsEntity(
+    id = 0,
     scheme = scheme,
     type = type,
     brand = brand,
@@ -33,6 +34,11 @@ fun CardDetailsDto.toDomain() = CardDetails(
     country = country?.name ?: "",
     city = bank?.city ?: "",
     bank = bank?.name ?: "",
-    website = bank?.url ?: "",
+    website = if (!bank?.url.isNullOrEmpty()) {
+        if (bank!!.url!!.startsWith("http")) bank.url!!
+        else "http://${bank.url}"
+    } else {
+        ""
+    },
     phone = bank?.phone ?: ""
 )

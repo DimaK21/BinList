@@ -1,6 +1,9 @@
 package ru.kryu.binlist.presentation.cardlist
 
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -71,6 +74,7 @@ fun CardItem(card: CardDetails, modifier: Modifier = Modifier) {
 
 @Composable
 fun DetailColumn(card: CardDetails, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
     Column(
         modifier = modifier,
     ) {
@@ -80,8 +84,30 @@ fun DetailColumn(card: CardDetails, modifier: Modifier = Modifier) {
         DetailRow(label = stringResource(R.string.country), value = card.country)
         DetailRow(label = stringResource(R.string.city), value = card.city)
         DetailRow(label = stringResource(R.string.bank), value = card.bank)
-        DetailRow(label = stringResource(R.string.website), value = card.website)
-        DetailRow(label = stringResource(R.string.phone), value = card.phone)
+        DetailRow(
+            label = stringResource(R.string.website),
+            value = card.website,
+            modifier = Modifier.clickable {
+                if (card.website.isNotEmpty()) {
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse(card.website)
+                    }
+                    context.startActivity(intent)
+                }
+            }
+        )
+        DetailRow(
+            label = stringResource(R.string.phone),
+            value = card.phone,
+            modifier = Modifier.clickable {
+                if (card.phone.isNotEmpty()) {
+                    val intent = Intent(Intent.ACTION_DIAL).apply {
+                        data = Uri.parse("tel:${card.phone}")
+                    }
+                    context.startActivity(intent)
+                }
+            }
+        )
     }
 }
 
